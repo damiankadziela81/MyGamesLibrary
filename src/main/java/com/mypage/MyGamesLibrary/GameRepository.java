@@ -17,4 +17,9 @@ class GameRepository {
         return jdbcTemplate.query("SELECT * FROM game",
                 BeanPropertyRowMapper.newInstance(Game.class));
     }
+
+    public Game getById(int id){
+        return jdbcTemplate.queryForObject("SELECT * FROM game WHERE id = ?",
+                BeanPropertyRowMapper.newInstance(Game.class), id);
+    }
 }

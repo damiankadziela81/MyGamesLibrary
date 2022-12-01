@@ -22,4 +22,13 @@ class GameRepository {
         return jdbcTemplate.queryForObject("SELECT * FROM game WHERE id = ?",
                 BeanPropertyRowMapper.newInstance(Game.class), id);
     }
+
+    public int save(List<Game> games) {
+        games.forEach(game ->
+                jdbcTemplate.update("INSERT INTO game(title, genre, release_year, developer, publisher, rating) " +
+                "VALUES (?, ?, ?, ?, ?, ?)", game.getTitle(), game.getGenre(), game.getReleaseYear(),
+                        game.getDeveloper(), game.getPublisher(), game.getRating()
+                ));
+        return 1;
+    }
 }

@@ -31,4 +31,12 @@ class GameRepository {
                 ));
         return 1;
     }
+
+    public int update(Game game) {
+        return jdbcTemplate.update("UPDATE game SET title=?, genre=?, release_year=?, developer=?, publisher=?," +
+                        " rating=? WHERE id=?",
+                game.getTitle(),game.getGenre(),game.getReleaseYear(),
+                game.getDeveloper(),game.getPublisher(),game.getRating(),
+                game.getId());
+    }
 }

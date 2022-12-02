@@ -30,7 +30,7 @@ class LibraryController {
     @PutMapping("/{id}")
     public int update(@PathVariable("id") int id, @RequestBody Game updatedGame) {
         Game game = gameRepository.getById(id);
-        if(game != null) {
+        if (game != null) {
             game.setTitle(updatedGame.getTitle());
             game.setGenre(updatedGame.getGenre());
             game.setReleaseYear(updatedGame.getReleaseYear());
@@ -44,4 +44,20 @@ class LibraryController {
         }
     }
 
+    @PatchMapping("/{id}")
+    public int partialUpdate(@PathVariable("id") int id, @RequestBody Game updatedGame) {
+        Game game = gameRepository.getById(id);
+        if (game != null){
+            if (updatedGame.getTitle() != null) game.setTitle(updatedGame.getTitle());
+            if (updatedGame.getGenre() != null) game.setGenre(updatedGame.getGenre());
+            if (updatedGame.getReleaseYear() > 1970) game.setReleaseYear(updatedGame.getReleaseYear());
+            if (updatedGame.getDeveloper() != null) game.setDeveloper(updatedGame.getDeveloper());
+            if (updatedGame.getPublisher() != null) game.setPublisher(updatedGame.getPublisher());
+            if (updatedGame.getRating() > 0) game.setRating(updatedGame.getRating());
+            gameRepository.update(game);
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 }

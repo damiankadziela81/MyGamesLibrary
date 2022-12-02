@@ -39,4 +39,8 @@ class GameRepository {
                 game.getDeveloper(),game.getPublisher(),game.getRating(),
                 game.getId());
     }
+
+    public int delete(int id) {
+        return jdbcTemplate.update("DELETE FROM game WHERE id=?", id);
+    }
 }

@@ -60,4 +60,9 @@ class LibraryController {
             return -1;
         }
     }
+
+    @DeleteMapping("/{id}")
+    public int delete(@PathVariable("id") int id) {
+        return gameRepository.delete(id);
+    }
 }

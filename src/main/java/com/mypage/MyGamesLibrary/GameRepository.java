@@ -23,6 +23,21 @@ class GameRepository {
                 BeanPropertyRowMapper.newInstance(Game.class), id);
     }
 
+    List<Game> getByTitle(String title) {
+        return jdbcTemplate.query("SELECT * FROM game WHERE title = ?",
+                BeanPropertyRowMapper.newInstance(Game.class), title);
+    }
+
+    public List<Game> getByDeveloper(String developer) {
+        return jdbcTemplate.query("SELECT * FROM game WHERE developer = ?",
+                BeanPropertyRowMapper.newInstance(Game.class), developer);
+    }
+
+    public List<Game> getByRating(int rating) {
+        return jdbcTemplate.query("SELECT * FROM game WHERE rating = ?",
+                BeanPropertyRowMapper.newInstance(Game.class), rating);
+    }
+
     public int save(List<Game> games) {
         games.forEach(game ->
                 jdbcTemplate.update("INSERT INTO game(title, genre, release_year, developer, publisher, rating) " +

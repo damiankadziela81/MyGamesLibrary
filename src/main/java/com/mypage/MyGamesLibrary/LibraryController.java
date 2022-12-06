@@ -1,6 +1,7 @@
 package com.mypage.MyGamesLibrary;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,16 +14,34 @@ class LibraryController {
     GameRepository gameRepository;
 
     @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
     public List<Game> getAll(){
         return gameRepository.getAll();
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Game getById(@PathVariable("id") int id){
         return gameRepository.getById(id);
     }
 
+    @GetMapping("/title/{title}")
+    public List<Game> getByTitle(@PathVariable("title") String title){
+        return gameRepository.getByTitle(title);
+    }
+
+    @GetMapping("dev/{developer}")
+    public List<Game> getByDeveloper(@PathVariable("developer") String developer){
+        return gameRepository.getByDeveloper(developer);
+    }
+
+    @GetMapping("/rating/{rating}") //For String varialbles space replaced by %20 in URL
+    public List<Game> getByRating(@PathVariable("rating") int rating){
+        return gameRepository.getByRating(rating);
+    }
+
     @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
     public int add(@RequestBody List<Game> games){
         return gameRepository.save(games);
     }
